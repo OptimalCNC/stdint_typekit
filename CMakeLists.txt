@@ -14,6 +14,10 @@ cmake_minimum_required(VERSION 2.6.3)
 #
 project(stdint)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Set the CMAKE_PREFIX_PATH in case you're not using Orocos through ROS
 # for helping these find commands find RTT.
 find_package(OROCOS-RTT REQUIRED ${RTT_HINTS})
@@ -39,4 +43,3 @@ orocos_install_headers( Types.hpp ) # ...you may add multiple header files
 # that it can pick up all above settings.
 #
 orocos_generate_package()
-
