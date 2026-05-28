@@ -51,7 +51,7 @@ std::string StdintTypekitPlugin::getName() {
 }
 
 template<typename T>
-bool StdintTypekitPlugin::addTypeOrAlias(const std::string name) {
+bool StdintTypekitPlugin::addTypeOrAlias(const std::string& name) {
     log(Debug) << "addTypeOrAlias<" << typeid(T).name() << ">(" << name << ")" << endlog();
 	TypeInfo* t = ti->getTypeInfo<T> ();
 	if (t == NULL)

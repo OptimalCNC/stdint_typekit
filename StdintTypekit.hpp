@@ -42,13 +42,13 @@ namespace types {
  */
 class StdintTypekitPlugin: public RTT::types::TypekitPlugin {
 public:
-	typedef std::map<std::string, bool> alias_map_t;
+	using alias_map_t = std::map<std::string, bool>;
 	static alias_map_t aliased;
-	//
-	virtual std::string getName();
-	virtual bool loadTypes();
-	virtual bool loadConstructors();
-	virtual bool loadOperators();
+
+	std::string getName() override;
+	bool loadTypes() override;
+	bool loadConstructors() override;
+	bool loadOperators() override;
 private:
 	/** RTT Type info repository owning types. */
 	TypeInfoRepository::shared_ptr ti;
@@ -56,11 +56,10 @@ private:
 	 * If the type already exists, it is aliased.
 	 */
 	template<typename T>
-	bool addTypeOrAlias(const std::string name);
+	bool addTypeOrAlias(const std::string& name);
 };
 
 }
 }
 
 #endif
-
