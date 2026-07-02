@@ -35,6 +35,7 @@
 #include <rtt/types/Operators.hpp>
 #include <rtt/types/OperatorTypes.hpp>
 #include <rtt/internal/mystd.hpp>
+#include <rtt/Logger.hpp>
 
 #include "StdintTypekit.hpp"
 
@@ -52,14 +53,15 @@ std::string StdintTypekitPlugin::getName() {
 
 template<typename T>
 bool StdintTypekitPlugin::addTypeOrAlias(const std::string& name) {
-    log(Debug) << "addTypeOrAlias<" << typeid(T).name() << ">(" << name << ")" << endlog();
+    Logger::log().logf(Logger::Debug, "StdintTypekitPlugin",
+                       "addTypeOrAlias<%s>(%s)", typeid(T).name(), name.c_str());
 	TypeInfo* t = ti->getTypeInfo<T> ();
 	if (t == NULL)
 		return ti->addType(new StdTypeInfo<T> (name.c_str()));
 	else {
-		log(Warning) << "RTT type repository already knows type '" << name
-				<< "' as type '" << t->getTypeName() << "'. Aliasing type '"
-				<< t->getTypeName() << "'" << endlog();
+		Logger::log().logf(Logger::Warning, "StdintTypekitPlugin",
+				"RTT type repository already knows type '%s' as type '%s'. Aliasing type '%s'",
+				name.c_str(), t->getTypeName().c_str(), t->getTypeName().c_str());
 		aliased[name] = true;
 		return true;//ti->aliasType(name, t);
 	}
@@ -71,47 +73,48 @@ bool StdintTypekitPlugin::loadTypes() {
 	// Signed integers
 #ifdef ADD_INT8_TYPE
 	if (!addTypeOrAlias<int_least8_t> ("int8")) {
-		log(Error) << "Unable to define (add or alias) type 'int8'" << endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'int8'");
 		return false;
 	}
 #endif
 	if (!addTypeOrAlias<int_least16_t> ("int16")) {
-		log(Error) << "Unable to define (add or alias) type 'int16'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'int16'");
 		return false;
 	}
 	if (!addTypeOrAlias<int_least32_t> ("int32")) {
-		log(Error) << "Unable to define (add or alias) type 'int32'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'int32'");
 		return false;
 	}
 	if (!addTypeOrAlias<int_least64_t> ("int64")) {
-		log(Error) << "Unable to define (add or alias) type 'int64'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'int64'");
 		return false;
 	}
 
 	// Unsigned integers
 #ifdef ADD_INT8_TYPE
 	if (!addTypeOrAlias<uint_least8_t> ("uint8")) {
-		log(Error) << "Unable to define (add or alias) type 'uint8'"
-		<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'uint8'");
 		return false;
 	}
 #endif
 	if (!addTypeOrAlias<uint_least16_t> ("uint16")) {
-		log(Error) << "Unable to define (add or alias) type 'uint16'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'uint16'");
 		return false;
 	}
 	if (!addTypeOrAlias<uint_least32_t> ("uint32")) {
-		log(Error) << "Unable to define (add or alias) type 'uint32'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'uint32'");
 		return false;
 	}
 	if (!addTypeOrAlias<uint_least64_t> ("uint64")) {
-		log(Error) << "Unable to define (add or alias) type 'uint64'"
-				<< endlog();
+		Logger::log().logf(Logger::Error, "StdintTypekitPlugin",
+				"Unable to define (add or alias) type 'uint64'");
 		return false;
 	}
 
